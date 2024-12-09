@@ -29,3 +29,7 @@ def updateProduct(input: Product) :
 
 def deleteProduct(id : int) :
     result = dataDeleteProduct(id)
+
+# Get a list of products filtered by category ID
+def getProductByCat(id: int):
+    return dataGetProductByCat(id)
