@@ -19,9 +19,10 @@
                 <!-- https://getbootstrap.com/docs/5.3/components/list-group/#links-and-buttons -->
                 <div class="list-group">
                     {% for category in categories %}
-                        <a href="#" class="list-group-item list-group-item-action">{{ category.name }}</a>
+                    <button class="list-group-item list-group-item-action" hx-target="#productList" hx-swap="innerHTML"
+                        hx-get="/product/bycat/{{  category.id }}" hx-trigger="click">{{ category.name }}</button>
                     {% endfor %}
-                    </div>
+                </div>
 
             </div>
             <div class="col-10">
@@ -33,28 +34,28 @@
                 -->
                 <table class="table table-striped">
                     <thead>
-                      <tr>
-                        <th scope="col">Picture</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Price</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Picture</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Price</th>
+                        </tr>
                     </thead>
                     <tbody id="productList">
                         {% include "/product/partials/product_list.html" ignore missing with context %}
                     </tbody>
                 </table>
-                
+
                 <!-- Add Product Form -->
                 <form class="ms-2 me-auto" hx-post="/product/" hx-target="#productList" hx-swap="beforeend">
                     <fieldset>
                         <legend>Add a new product</legend>
                         <div class="mb-3">
                             <label for="category_id" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="category_id" name="category_id" required>
+                            {% include "/product/partials/select_category.html" ignore missing with context %}
                         </div>
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
@@ -62,11 +63,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea rows="2" class="form-control" id="description" name="description" required></textarea>
+                            <textarea rows="2" class="form-control" id="description" name="description"
+                                required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="thumbnail" class="form-label">Thumbnail URL</label>
-                            <input type="text" class="form-control" id="thumbnail" name="thumbnail" placeholder="https://">
+                            <input type="text" class="form-control" id="thumbnail" name="thumbnail"
+                                placeholder="https://">
                         </div>
                         <div class="mb-3">
                             <label for="stock" class="form-label">Stock</label>
@@ -74,11 +77,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Price</label>
-                            <input type="number" min="0.01" step="0.01" class="form-control" id="price" name="price" placeholder="0.00" required>
-                        </div>                       
+                            <input type="number" min="0.01" step="0.01" class="form-control" id="price" name="price"
+                                placeholder="0.00" required>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit Form</button>
                     </fieldset>
-                  </form>
+                </form>
 
             </div>
         </div>
